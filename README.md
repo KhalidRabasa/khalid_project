@@ -11,4 +11,4 @@ UI design by Gedeon Nitumosi Lulemba
 # App Icon:
 App icon designed by Abdulsamad Opeyemi Aliyu 
 ![alt text](images/logo.png=75x75 "App Logo" )
-![alt text](images/logo_screenshot.png "App Logo" =400)
+![alt text](images/logo_screenshot.png=500x "App Logo")
