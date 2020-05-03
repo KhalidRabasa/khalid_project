@@ -12,3 +12,8 @@ UI design by Gedeon Nitumosi Lulemba
 App icon designed by Abdulsamad Opeyemi Aliyu 
 
 ![alt text](images/logo_screenshot.png "App Logo")
+
+
+# Splash Screen:
+
+![alt text](images/splash_screen.png "App Screen")
