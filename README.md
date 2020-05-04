@@ -17,3 +17,7 @@ App icon designed by Abdulsamad Opeyemi Aliyu
 # Splash Screen:
 
 ![alt text](images/splash_screen.png "App Screen")
+
+# Home Page:
+
+![alt text](images/homepage_screen.png "Home Page Screen")
