@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_launcher_icons: 0.7.5
   splashscreen: ^1.2.0
+  http: ^0.12.0+1
+  currency_pickers: 1.0.6
 
 flutter_icons:
   ios: true

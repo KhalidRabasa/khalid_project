@@ -1,4 +1,7 @@
 import 'package:convertplus/components/gradient_button.dart';
+import 'package:currency_pickers/country.dart';
+import 'package:currency_pickers/currency_pickers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,6 +38,28 @@ class _HomePageState extends State<HomePage> {
       otherCurrController.text = temp;
     });
   }
+
+  Widget _buildDropdownItem(Country country) => Container(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Row(
+          children: <Widget>[
+            Container(
+                width: 45,
+                height: 30,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: CurrencyPickerUtils.getDefaultFlagImage(country)),
+            SizedBox(
+              width: 15.0,
+            ),
+            Text(
+              "${country.currencyCode} - ${country.currencyName}",
+              style: TextStyle(
+                  fontWeight: FontWeight.w500, color: Color(0xFF7B83B2)),
+            ),
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +109,43 @@ class _HomePageState extends State<HomePage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
+                                      //                             CurrencyPickerDropdown(
+                                      //   initialValue: 'tr',
+                                      //   itemBuilder: _buildDropdownItem,
+                                      //   onValuePicked: (Country country) {
+                                      //     print("${country.name}");
+                                      //   },
+                                      // )
                                       InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => Theme(
+                                                  data: Theme.of(context)
+                                                      .copyWith(
+                                                          primaryColor:
+                                                              Colors.pink),
+                                                  child: CurrencyPickerDialog(
+                                                      titlePadding:
+                                                          EdgeInsets.all(8.0),
+                                                      searchCursorColor:
+                                                          Colors.pinkAccent,
+                                                      searchInputDecoration:
+                                                          InputDecoration(
+                                                              hintText:
+                                                                  'Search...'),
+                                                      isSearchable: true,
+                                                      title: Text(
+                                                          'Select Currency'),
+                                                      onValuePicked: (country) {
+                                                        setState(() {
+                                                          firstCurr = country
+                                                              .currencyCode;
+                                                        });
+                                                      },
+                                                      itemBuilder:
+                                                          _buildDropdownItem)));
+                                        },
                                         child: (Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
@@ -105,6 +166,10 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Flexible(
                                           child: TextField(
+                                        enabled: true,
+                                        keyboardType:
+                                            TextInputType.numberWithOptions(
+                                                decimal: true),
                                         style: TextStyle(fontSize: 25),
                                         controller: baseCurrController,
                                         textAlign: TextAlign.right,
@@ -152,6 +217,35 @@ class _HomePageState extends State<HomePage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => Theme(
+                                                  data: Theme.of(context)
+                                                      .copyWith(
+                                                          primaryColor:
+                                                              Colors.pink),
+                                                  child: CurrencyPickerDialog(
+                                                      titlePadding:
+                                                          EdgeInsets.all(8.0),
+                                                      searchCursorColor:
+                                                          Colors.pinkAccent,
+                                                      searchInputDecoration:
+                                                          InputDecoration(
+                                                              hintText:
+                                                                  'Search...'),
+                                                      isSearchable: true,
+                                                      title: Text(
+                                                          'Select Currency'),
+                                                      onValuePicked: (country) {
+                                                        setState(() {
+                                                          secondCurr = country
+                                                              .currencyCode;
+                                                        });
+                                                      },
+                                                      itemBuilder:
+                                                          _buildDropdownItem)));
+                                        },
                                         child: (Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
@@ -172,6 +266,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Flexible(
                                           child: TextField(
+                                            enabled: false,
                                         style: TextStyle(fontSize: 25),
                                         controller: otherCurrController,
                                         textAlign: TextAlign.right,
@@ -209,34 +304,58 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         width: 40,
                       ),
-                      InkWell(
-                        onTap: () {
-                          swap();
-                        },
-                        child: Card(
+                      // InkWell(
+                      //   onTap: () {
+                      //     swap();
+                      //   },
+                      //   child:
+                      //  Card(
+                      //   elevation: 15,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(25.0),
+                      //   ),
+                      //   child: Container(
+                      //     width: 50,
+                      //     height: 50,
+                      //     child: Center(
+                      //       child: Icon(
+                      //         Icons.swap_vert,
+                      //         color: Color(0xFF4638DE),
+                      //         size: 23,
+                      //       ),
+                      //     ),
+                      //     decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(25)),
+                      //       // boxShadow: [BoxShadow(color: Color(0x22333333),blurRadius: 5,spreadRadius: 5)]
+                      //     ),
+                      //   ),
+                      // ),
+                      SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: RaisedButton(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(0),
+                          highlightColor: Color(0xFFCCCCCC),
+                          onPressed: () {
+                            swap();
+                          },
                           elevation: 15,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25.0),
                           ),
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            child: Center(
-                              child: Icon(
-                                Icons.swap_vert,
-                                color: Color(0xFF4638DE),
-                                size: 23,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
-                              // boxShadow: [BoxShadow(color: Color(0x22333333),blurRadius: 5,spreadRadius: 5)]
+                          child: Center(
+                            child: Icon(
+                              Icons.swap_vert,
+                              color: Color(0xFF4638DE),
+                              size: 23,
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      // )
                     ],
                   ),
                 ),
