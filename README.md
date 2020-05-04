@@ -25,3 +25,7 @@ App icon designed by Abdulsamad Opeyemi Aliyu
 # Currency List:
 
 ![alt text](images/currencies_screen.png "Currency List Screen")
+
+# Loading Screen:
+
+![alt text](images/loading_screen.png "Loading Screen")
