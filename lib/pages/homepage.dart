@@ -5,8 +5,33 @@ import 'package:currency_pickers/country.dart';
 import 'package:currency_pickers/currency_pickers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:money_field/money_field.dart';
+
+class NumericTextFormatter extends TextInputFormatter {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.length == 0) {
+      return newValue.copyWith(text: '');
+    } else if (newValue.text.compareTo(oldValue.text) != 0) {
+      int selectionIndexFromTheRight =
+          newValue.text.length - newValue.selection.end;
+      final f = new NumberFormat("#,###");
+      int num = int.parse(newValue.text.replaceAll(f.symbols.GROUP_SEP, ''));
+      final newString = f.format(num);
+      return new TextEditingValue(
+        text: newString,
+        selection: TextSelection.collapsed(
+            offset: newString.length - selectionIndexFromTheRight),
+      );
+    } else {
+      return newValue;
+    }
+  }
+}
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,8 +39,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController baseCurrController = TextEditingController();
-  TextEditingController otherCurrController = TextEditingController();
+  // MoneyFieldController baseCurrController = MoneyFieldController(decimalSeparator: '.', thousandsSeparator: ',',maxDigitsBeforeDecimal: 2);
+
+  // MoneyFieldController otherCurrController = MoneyFieldController(decimalSeparator: '.', thousandsSeparator: ',', maxDigitsBeforeDecimal: 2);
+  MoneyMaskedTextController baseCurrController =  MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController otherCurrController = MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
   String firstCurr = "USD";
   String secondCurr = "EUR";
   String bottom1 = "1 USD = 0.9195 EUR";
@@ -96,25 +124,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   calculate() {
+    print('Got to calculate');
     if (flipped) {
       getCurrencyDetails();
     }
-    
+
     if (rates != null) {
       setState(() {
         currentRate = double.parse('${rates[secondCurr]}');
         print('Current rate: $currentRate');
-        bottom1 = "1 $firstCurr = ${currentRate.toStringAsFixed(3)} $secondCurr";
-        bottom2 = "1 $secondCurr = ${(1/currentRate).toStringAsFixed(3)} $firstCurr";
-
+        bottom1 =
+            "1 $firstCurr = ${currentRate.toStringAsFixed(3)} $secondCurr";
+        bottom2 =
+            "1 $secondCurr = ${(1 / currentRate).toStringAsFixed(3)} $firstCurr";
       });
       if (baseCurrController.text == '') {
-      otherCurrController.text = "0";
-      return;
-    }
+        otherCurrController.text = "0";
+        return;
+      }
       if (!flipped) {
         try {
-          double amount = double.parse(baseCurrController.text);
+          double amount =
+              double.parse('${baseCurrController.text}'.replaceAll(',', ''));
           print('Amount entered: $amount');
           double converted = amount * currentRate;
           setState(() {
@@ -133,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                     child: Text('OK'),
                     onPressed: () {
                       Navigator.pop(context);
-baseCurrController.text = "0";
+                      baseCurrController.text = "0";
                     },
                   )
                 ],
@@ -143,7 +174,8 @@ baseCurrController.text = "0";
         }
       } else {
         try {
-          double amount = double.parse(baseCurrController.text);
+          double amount =
+              double.parse('${baseCurrController.text}'.replaceAll(',', ''));
           print('Amount entered: $amount');
           double converted = amount / currentRate;
           print('Converted now: $converted');
@@ -444,12 +476,14 @@ baseCurrController.text = "0";
                                           Flexible(
                                               child: TextField(
                                             onChanged: (newText) {
+                                              // baseCurrController.text = oCcy.format(double.parse(newText));
+                                              // print(
+                                              //     '${oCcy.format(double.parse(newText))}');
                                               calculate();
                                             },
                                             enabled: true,
                                             keyboardType:
-                                                TextInputType.numberWithOptions(
-                                                    decimal: true),
+                                                TextInputType.number,
                                             style: TextStyle(fontSize: 25),
                                             controller: baseCurrController,
                                             textAlign: TextAlign.right,
@@ -552,7 +586,6 @@ baseCurrController.text = "0";
               Align(
                 // width: 150,
                 child: MyGradientButton(
-                  
                     width: 150,
                     child: Text(
                       'Convert',

@@ -83,6 +83,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.5"
+  flutter_masked_text:
+    dependency: "direct main"
+    description:
+      name: flutter_masked_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
+  flutter_money_formatter:
+    dependency: transitive
+    description:
+      name: flutter_money_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -110,12 +124,12 @@ packages:
     source: hosted
     version: "2.1.4"
   intl:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.15.8"
   loading_indicator:
     dependency: "direct main"
     description:
@@ -137,6 +151,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
+  money_field:
+    dependency: "direct main"
+    description:
+      name: money_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  moneytextformfield:
+    dependency: "direct main"
+    description:
+      name: moneytextformfield
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.5+1"
   path:
     dependency: transitive
     description:
@@ -248,4 +276,4 @@ packages:
     source: hosted
     version: "2.2.1"
 sdks:
-  dart: ">=2.5.0 <3.0.0"
+  dart: ">=2.4.0 <3.0.0"

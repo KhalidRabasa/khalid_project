@@ -2,7 +2,7 @@ import 'package:convertplus/pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
-void main() => runApp(MaterialApp(home: MyApp()));
+void main() => runApp(MaterialApp(debugShowCheckedModeBanner: false,home: MyApp()));
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
