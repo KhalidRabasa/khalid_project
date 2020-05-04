@@ -29,3 +29,4 @@ App icon designed by Abdulsamad Opeyemi Aliyu
 # Loading Screen:
 
 ![alt text](images/loading_screen.png "Loading Screen")
+

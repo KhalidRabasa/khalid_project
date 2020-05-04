@@ -4,7 +4,7 @@ import 'package:convertplus/model/currency.dart';
 import 'package:http/http.dart';
 
 Future<Response> getAllCurrencies(String base){
-  return get('http://data.fixer.io/api/latest?access_key=8f694f1c5cae5c06626c07cbd30c5b07');
+  return get('http://data.fixer.io/api/latest?access_key=8f694f1c5cae5c06626c07cbd30c5b07&base=$base');
 }
 
 Future<CustomCurrency> getTheCurrencies(String base) async {
